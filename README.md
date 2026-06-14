@@ -4,6 +4,8 @@ Microserviço responsável por consumir eventos de pedidos publicados pelo **Ord
 
 > 📦 Este serviço faz parte do sistema [Order Processing System](https://github.com/BatistaSec/Order-messaging-system)
 
+![CI](https://github.com/SEU_USUARIO/SEU_REPOSITORIO/actions/workflows/ci.yml/badge.svg)
+
 ---
 
 ## 📌 Responsabilidades
@@ -23,6 +25,7 @@ Microserviço responsável por consumir eventos de pedidos publicados pelo **Ord
 - Lombok
 - JUnit 5 + Mockito
 - Testcontainers
+- Docker
 - GitHub Actions (CI)
 
 ---
@@ -32,50 +35,43 @@ Order Service → RabbitMQ (order.exchange) → order.created.queue → Notifica
 
 ---
 
-## ⚙️ Configuração
-
-```properties
-spring.rabbitmq.host=localhost
-spring.rabbitmq.port=5672
-spring.rabbitmq.username=guest
-spring.rabbitmq.password=guest
-```
-
----
-
 ## ▶️ Como executar
 
-### 1. Subir o RabbitMQ via Docker
+### Com Docker (recomendado)
 
 ```bash
-docker run -d --name rabbitmq \
-  -p 5672:5672 \
-  -p 15672:15672 \
-  rabbitmq:3-management
+docker-compose up --build
 ```
 
-### 2. Executar o serviço
+| Serviço | URL |
+|---|---|
+| Notification Service | http://localhost:8081 |
+| RabbitMQ Management | http://localhost:15672 |
+
+### Sem Docker
 
 ```bash
+# 1. Subir o RabbitMQ
+docker run -d --name rabbitmq \
+  -p 5672:5672 -p 15672:15672 \
+  rabbitmq:3-management
+
+# 2. Rodar a aplicação
 ./mvnw spring-boot:run
 ```
-
-> ⚠️ Execute o **Order Service** antes de iniciar este serviço.
 
 ---
 
 ## 🧪 Testes
 
-O projeto conta com testes unitários e de integração:
-
 ```bash
-# Rodar todos os testes
+# Todos os testes
 ./mvnw verify
 
-# Rodar apenas testes unitários
+# Apenas unitários
 ./mvnw test -Dtest=OrderCreatedConsumerTest
 
-# Rodar apenas testes de integração
+# Apenas integração
 ./mvnw test -Dtest=OrderCreatedConsumerIntegrationTest
 ```
 
@@ -88,7 +84,10 @@ O projeto conta com testes unitários e de integração:
 
 ## 🔁 CI/CD
 
-Pipeline configurado com **GitHub Actions** — roda automaticamente a cada push ou Pull Request na branch `main`.
+Pipeline com **GitHub Actions** que roda automaticamente a cada push ou PR na `main`:
+
+1. Roda todos os testes
+2. Builda a imagem Docker
 
 ---
 
