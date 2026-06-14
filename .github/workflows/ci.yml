@@ -30,5 +30,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      - name: Give permission to mvnw
+        run: chmod +x ./mvnw
+
       - name: Build and run tests
         run: ./mvnw verify
