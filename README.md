@@ -4,7 +4,6 @@ Microserviço responsável por consumir eventos de pedidos publicados pelo **Ord
 
 > 📦 Este serviço faz parte do sistema [Order Processing System](https://github.com/BatistaSec/Order-messaging-system)
 
-![CI](https://github.com/SEU_USUARIO/SEU_REPOSITORIO/actions/workflows/ci.yml/badge.svg)
 
 ---
 
