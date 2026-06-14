@@ -35,3 +35,6 @@ jobs:
 
       - name: Build and run tests
         run: ./mvnw verify
+
+      - name: Build Docker image
+        run: docker build -t notification-service .
