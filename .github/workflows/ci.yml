@@ -3,7 +3,7 @@ name: CI - Notification Service
 on:
   push:
     branches:
-      - main
+      - '**'        # 👈 roda em qualquer branch
   pull_request:
     branches:
       - main
