@@ -1,4 +1,4 @@
-markdown# 🟩 Notification Service
+# 🟩 Notification Service
 
 Microserviço responsável por consumir eventos de pedidos publicados pelo **Order Service** via RabbitMQ e processar notificações.
 
